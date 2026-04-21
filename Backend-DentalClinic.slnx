@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DentalClinic.Api/DentalClinic.Api.csproj" />
+    <Project Path="src/DentalClinic.Domain/DentalClinic.Domain.csproj" />
+    <Project Path="src/DentalClinic.DomainService/DentalClinic.DomainService.csproj" />
+    <Project Path="src/DentalClinic.Dto/DentalClinic.Dto.csproj" />
+    <Project Path="src/DentalClinic.Exceptions/DentalClinic.Exceptions.csproj" />
+    <Project Path="src/DentalClinic.Facade/DentalClinic.Facade.csproj" />
+    <Project Path="src/DentalClinic.Infrastructure/DentalClinic.Infrastructure.csproj" />
+  </Folder>
+</Solution>

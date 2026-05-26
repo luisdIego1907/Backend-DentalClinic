@@ -13,4 +13,15 @@ public class PatientDto
     public string phone{get;set;} = string.Empty;
 
     public string address{get;set;} = string.Empty;
+
+    public DateOnly birth_date { get; set; }
+
+     public string email { get; set; } = string.Empty;
+
+      public string gender { get; set; } = string.Empty;
+
+        public DateTime created_at { get; set; }
+
+
+
 }

@@ -29,11 +29,11 @@ public class PatientController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetPatient(int patient_id)
+    public async Task<IActionResult> GetPatient(int id)
     {
         try
         {
-            var patient = await patientFacade.GetByIdAsync(patient_id);
+            var patient = await patientFacade.GetByIdAsync(id);
             
             var model = PatientMapper.ToModel(patient);
 

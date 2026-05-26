@@ -17,8 +17,12 @@ public class PatientMapper
             identification = model.identification,
             first_name = model.first_name,
             last_name = model.last_name,
+            birth_date = model.birth_date,
             phone = model.phone,
-            address = model.address
+            email = model.email,
+            address = model.address,
+            gender = model.gender,
+            created_at = DateTime.UtcNow,
 
         };
     }
@@ -32,7 +36,7 @@ public class PatientMapper
     {
         return new PatientResponseModel
         {
-            
+
             patient_id = patient.patient_id,
             identification = patient.identification,
             first_name = patient.first_name,

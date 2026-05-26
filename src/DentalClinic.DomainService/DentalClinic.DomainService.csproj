@@ -1,16 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\DentalClinic.Domain\DentalClinic.Domain.csproj" />
     <ProjectReference Include="..\DentalClinic.Dto\DentalClinic.Dto.csproj" />
     <ProjectReference Include="..\DentalClinic.Exceptions\DentalClinic.Exceptions.csproj" />
     <ProjectReference Include="..\DentalClinic.Infrastructure\DentalClinic.Infrastructure.csproj" />
   </ItemGroup>
-
 </Project>

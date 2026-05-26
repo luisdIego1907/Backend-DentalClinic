@@ -12,40 +12,40 @@ public class Patient
 
     [Required]
     [StringLength(20)]
-    public string identification{get; private set;} = string.Empty;
+    public string identification{get;  set;} = string.Empty;
 
     [Required]
     [StringLength(50)]
-    public string first_name{get; private set;} = string.Empty; 
+    public string first_name{get;  set;} = string.Empty; 
 
     [Required]
     [StringLength(50)]
-    public string last_name{get; private set;} = string.Empty;
+    public string last_name{get; set;} = string.Empty;
 
     [Required]
-    public DateOnly birth_date{get; private set;}
+    public DateOnly birth_date{get;  set;}
     
     [Required]
     [StringLength(20)]
-    public string phone{get; private set;} = string.Empty;
+    public string phone{get;  set;} = string.Empty;
 
     [Required]
      [StringLength(100)]
-    public string email{get; private set;} = string.Empty;
+    public string email{get;  set;} = string.Empty;
 
     [Required]
      [StringLength(150)]
-    public string address{get ; private set;} = string.Empty;
+    public string address{get ;  set;} = string.Empty;
 
 
     [Required]
     [StringLength(15)]
-    public string gender{get ; private set;} = string.Empty;
+    public string gender{get ;  set;} = string.Empty;
 
 
     [Required]
-    public DateTime created_at{get; private set;} 
+    public DateTime created_at{get;  set;} 
 
     [Required]
-    public string status{get ; private set;} = "active";
+    public string status{get ;  set;} = "active";
 }

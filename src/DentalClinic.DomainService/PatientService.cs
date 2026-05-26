@@ -21,8 +21,12 @@ public class PatientService : IPatientService
             identification = patient.identification,
             first_name = patient.first_name,
             last_name = patient.last_name,
+            birth_date = patient.birth_date,
             phone = patient.phone,
-            address = patient.address
+            email = patient.email,
+            address = patient.address,
+            gender = patient.gender,
+            created_at = patient.created_at
         };
 
         return _patientRepository.AddAsync(patientEntity);

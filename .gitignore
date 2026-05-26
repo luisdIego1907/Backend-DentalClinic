@@ -86,3 +86,5 @@ coverage/
 ## Generated files
 *.g.cs
 *.generated.cs
+
+appsettings.json

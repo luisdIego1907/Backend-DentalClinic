@@ -10,12 +10,17 @@ public class PatientMapper
     {
         return new PatientDto
         {
-          patient_id = patient.patient_id,
-          identification = patient.identification,
-          first_name = patient.first_name,
-          last_name = patient.last_name,
-          phone = patient.phone,
-          address = patient.address  
+            patient_id = patient.patient_id,
+            identification = patient.identification,
+            first_name = patient.first_name,
+            last_name = patient.last_name,
+            birth_date = patient.birth_date,
+            phone = patient.phone,
+            email = patient.email,
+            address = patient.address,
+            gender = patient.gender,
+            created_at = patient.created_at,
+            status = patient.status
         };
     }
 

@@ -23,6 +23,7 @@ public class PatientMapper
             address = model.address,
             gender = model.gender,
             created_at = DateTime.UtcNow,
+            status = "active"
 
         };
     }
@@ -41,8 +42,13 @@ public class PatientMapper
             identification = patient.identification,
             first_name = patient.first_name,
             last_name = patient.last_name,
+            birth_date = patient.birth_date,
+            phone = patient.phone,
+            email = patient.email,
             address = patient.address,
-            phone = patient.phone
+            gender = patient.gender,
+            created_at = patient.created_at,
+             status = patient.status
         };
     }
 }

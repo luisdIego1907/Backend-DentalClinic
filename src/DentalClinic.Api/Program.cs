@@ -4,7 +4,6 @@ using DentalClinic.DomainService;
 using DentalClinic.Facade;
 using DentalClinic.Infrastructure;
 using DentalClinic.Infrastructure.Repositories;
-using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 using DentalClinic.Api.Security;
@@ -158,7 +157,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-internal class JwtBearerDefaults
-{
-}

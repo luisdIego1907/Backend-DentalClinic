@@ -6,9 +6,11 @@ public interface IUserRepository
 {
     Task<List<User>> GetAllAsync();
 
-    Task<User?> GetByIdAsync(int user_id);
+    Task<User?> GetByResourceIdAsync(Guid user_id);
 
     Task<User> AddAsync(User user);
+
+    Task<User> CreateAsync(User user);
 
     Task DeleteAsync(User user);
 

@@ -28,9 +28,9 @@ public class UserRepository : IUserRepository
         return await _context.Users.ToListAsync();
     }
 
-    public async Task<User?> GetByIdAsync(int user_id)
+    public async Task<User?> GetByResourceIdAsync(Guid id)
     {
-        return await _context.Users.FirstOrDefaultAsync(u =>  u.user_id == user_id);
+        return await _context.Users.FirstOrDefaultAsync(u =>  u.user_resource_id == id);
     }
 
     public Task<User?> GetByUserName(string username)
@@ -46,5 +46,10 @@ public class UserRepository : IUserRepository
     public async Task<bool> HasUserByUsernameAsync(string username)
     {
         return await _context.Users.AnyAsync(u => u.username == username);
+    }
+     public async Task<User> CreateAsync(User user)
+    {
+        _context.Users.Add(user);
+        return user;
     }
 }

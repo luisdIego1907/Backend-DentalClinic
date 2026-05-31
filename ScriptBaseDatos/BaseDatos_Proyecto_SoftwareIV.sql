@@ -191,7 +191,7 @@ VALUES
 ('Olivia', 'Brown', 'olivia.brown@dentalclinic.com', 'obrown', 'HASHED_PASSWORD_ASSIST_002', 'inactive', NULL);
 
 UPDATE dbo.[USER]
-SET password_hash = 'AQAAAAIAAYagAAAAEL/4tk8SbbR41cnI31EQQTGZLNE2ntBCdrSwDvIi2K8sIzeBZbclPlttrJNHNWpfpQ=='
+SET password_hash = '$2a$11$uIGk27kMUc8//eN6ebBn4eY0t6/ThfYk1rECZogobDtT6TwdX3fYm'
 WHERE username IN ('luisdi', 'didi', 'pao', 'eve', 'obrown');
 
 

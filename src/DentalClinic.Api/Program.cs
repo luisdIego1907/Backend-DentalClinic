@@ -156,4 +156,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+Console.WriteLine("/****************************************/\n\n\n");
+string password = "123456";
+
+string hash = BCrypt.Net.BCrypt.HashPassword(password);
+
+Console.WriteLine(hash);
+
 app.Run();

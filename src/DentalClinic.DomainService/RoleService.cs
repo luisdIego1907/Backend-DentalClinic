@@ -6,9 +6,9 @@ namespace DentalClinic.DomainService;
 public class RoleService : IRoleService
 {
 
-    private readonly IRoleRespository roleRespository;
+    private readonly IRoleRepository roleRespository;
 
-    public RoleService(IRoleRespository roleRespository)
+    public RoleService(IRoleRepository roleRespository)
     {
         this.roleRespository = roleRespository;
     }

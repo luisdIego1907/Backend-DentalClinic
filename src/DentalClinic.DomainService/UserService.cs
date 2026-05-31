@@ -58,7 +58,7 @@ public class UserService : IUserService
         return _userRepository.GetByResourceIdAsync(id);
     }
 
-    public async Task<User?> GetByUserAndPassowrd(AuthorizationRequestDto request)
+    public async Task<User?> GetByUserAndPassword(AuthorizationRequestDto request)
     {
         var user = await _userRepository.GetByUserName(request.username);
 

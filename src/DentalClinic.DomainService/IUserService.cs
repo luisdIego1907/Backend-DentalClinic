@@ -13,5 +13,5 @@ public interface IUserService
 
    Task<User> CreateAsync(CreateUserDto user);
 
-   Task<User?> GetByUserAndPassowrd(AuthorizationRequestDto request);
+   Task<User?> GetByUserAndPassword(AuthorizationRequestDto request);
 }

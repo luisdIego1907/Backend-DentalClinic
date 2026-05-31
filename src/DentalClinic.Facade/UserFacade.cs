@@ -43,7 +43,7 @@ public class UserFacade : IUserFacade
         await _context.SaveChangesAsync();
     }
 
-    public async Task<List<UserDto>> GetAllAysnc()
+    public async Task<List<UserDto>> GetAllAsync()
     {
         var entities = await _userService.GetAllAsync();
 
@@ -89,6 +89,17 @@ public class UserFacade : IUserFacade
         }
 
         await _context.SaveChangesAsync();
+
+        return UserMapper.ToUserRolesDto(user);
+    }
+    public async Task<UserRolesDto> GetUserRolesAsync(Guid userId)
+    {
+        var user = await _userService.GetByResourceIdAsync(userId);
+
+        if (user == null)
+        {
+            throw new ResourceNotFoundException();
+        }
 
         return UserMapper.ToUserRolesDto(user);
     }

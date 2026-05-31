@@ -24,7 +24,7 @@ public class UserMapper
         };
     }
 
-    public static CreateUserDto Toto(CreateUserRequestModel user)
+    public static CreateUserDto ToDto(CreateUserRequestModel user)
     {
         return new CreateUserDto
         {

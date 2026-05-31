@@ -4,9 +4,9 @@ namespace DentalClinic.DomainService;
 
 public class RoleNames
 {
-    public const string ADMINISTRATOR = "Administrator";
+    public const string ADMINISTRATOR = "admin";
 
-    public const string ODONTOLOGIST = "Odontologist";
+    public const string ODONTOLOGIST = "odontologist";
 
-    public const string ASSISTANT = "Assistant";
+    public const string ASSISTANT = "assistant";
 }

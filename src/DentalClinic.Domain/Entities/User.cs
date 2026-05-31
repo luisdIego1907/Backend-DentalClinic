@@ -10,6 +10,9 @@ public class User
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int user_id {get;  private set;}
 
+    [Required]
+    public Guid user_resource_id {get;set;}
+
     [StringLength(50)]
     [Required]
     public required string first_name {get;set;}

@@ -7,5 +7,5 @@ public class UpdateRolesRequestModel
 {
     
     [Required]
-    public required List<RoleAlieases> Roles {get;set;} = [];
+    public required List<RoleAliases> Roles {get;set;} = [];
 }

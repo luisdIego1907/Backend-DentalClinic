@@ -4,5 +4,5 @@ namespace DentalClinic.Api.Models.Responses;
 
 public class UserRolesResponseModel
 {
-    public List<RoleAlieases> Roles {get;set;} = [];
+    public List<RoleAliases> Roles {get;set;} = [];
 }

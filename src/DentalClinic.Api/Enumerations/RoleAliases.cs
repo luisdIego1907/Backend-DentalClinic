@@ -1,6 +1,6 @@
 namespace DentalClinic.Api.Enumerations;
 
-public enum RoleAlieases
+public enum RoleAliases
 {
     ADMIN, ODO, ASSIS
 }

@@ -8,7 +8,7 @@ public class User
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int user_id {get; private set;}
+    public int user_id {get;  private set;}
 
     [StringLength(50)]
     [Required]

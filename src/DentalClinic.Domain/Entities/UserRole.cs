@@ -1,0 +1,21 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.CompilerServices;
+using System.Security;
+using Microsoft.EntityFrameworkCore;
+
+namespace DentalClinic.Domain.Entities;
+
+[Table("USER_ROLE")]
+
+[Index(nameof(user_role_resource_id), IsUnique = true)]
+public class UserRole
+{
+   
+   public int user_id {get;private set;}
+
+   public int role_id {get; private set;}
+
+   public Guid user_role_resource_id {get; set;} = Guid.NewGuid();
+}

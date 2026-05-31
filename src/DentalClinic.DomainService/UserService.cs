@@ -67,7 +67,7 @@ public class UserService : IUserService
             return null;
         }
 
-        if (!!BCrypt.Net.BCrypt.Verify(request.password, user.password_hash))
+        if (!BCrypt.Net.BCrypt.Verify(request.password, user.password_hash))
         {
             return null;
         }

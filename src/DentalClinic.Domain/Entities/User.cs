@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DentalClinic.Domain.Entities;
 
-[Table("User")]
+[Table("USER")]
 public class User
 {
     [Key]

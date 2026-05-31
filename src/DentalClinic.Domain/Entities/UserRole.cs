@@ -18,4 +18,8 @@ public class UserRole
    public int role_id {get; private set;}
 
    public Guid user_role_resource_id {get; set;} = Guid.NewGuid();
+
+   public required User user {get;set;}
+
+   public required Role role {get;set;}
 }

@@ -5,7 +5,7 @@ using DentalClinic.Domain.Entities;
 
 namespace DentalClinic.Infrastructure.Repositories;
 
-public class RoleRepository : IRoleRespository
+public class RoleRepository : IRoleRepository
 {
     private readonly AppDbContext _context;
 

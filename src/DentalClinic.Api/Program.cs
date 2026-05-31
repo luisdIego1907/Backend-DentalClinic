@@ -1,16 +1,99 @@
+using System.Text.Json.Serialization;
+using DentalClinic.Api.Filters;
 using DentalClinic.DomainService;
 using DentalClinic.Facade;
 using DentalClinic.Infrastructure;
 using DentalClinic.Infrastructure.Repositories;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
+using DentalClinic.Api.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+/*
+    Seguridad
+*/
+//builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<MessageExceptionFilter>();
+})
+.AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
+
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+
+            ValidIssuer = jwtSettings["Issuer"],
+            ValidAudience = jwtSettings["Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(jwtSettings["Secret"]!))
+        };
+    });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(AuthorizationPolicies.CanSearchUsers, policy =>
+        policy.RequireRole(RoleNames.ADMINISTRATOR));
+
+    options.AddPolicy(AuthorizationPolicies.CanManageUsers, policy =>
+        policy.RequireRole(RoleNames.ADMINISTRATOR));
+
+    options.AddPolicy(AuthorizationPolicies.CanManagePatients, policy =>
+        policy.RequireRole(
+            RoleNames.ADMINISTRATOR,
+            RoleNames.ODONTOLOGIST,
+            RoleNames.ASSISTANT
+        ));
+
+    options.AddPolicy(AuthorizationPolicies.CanManageMedicalRecords, policy =>
+        policy.RequireRole(
+            RoleNames.ADMINISTRATOR,
+            RoleNames.ODONTOLOGIST
+        ));
+
+    options.AddPolicy(AuthorizationPolicies.CanManageAppointments, policy =>
+        policy.RequireRole(
+            RoleNames.ADMINISTRATOR,
+            RoleNames.ODONTOLOGIST,
+            RoleNames.ASSISTANT
+        ));
+
+    options.AddPolicy(AuthorizationPolicies.CanManageConsultations, policy =>
+        policy.RequireRole(
+            RoleNames.ADMINISTRATOR,
+            RoleNames.ODONTOLOGIST
+        ));
+
+    options.AddPolicy(AuthorizationPolicies.CanManageDiagnosis, policy =>
+        policy.RequireRole(
+            RoleNames.ADMINISTRATOR,
+            RoleNames.ODONTOLOGIST
+        ));
+
+    options.AddPolicy(AuthorizationPolicies.CanManageTreatment, policy =>
+        policy.RequireRole(
+            RoleNames.ADMINISTRATOR,
+            RoleNames.ODONTOLOGIST
+        ));
+});
+
 builder.Services.AddOpenApi();
 
 /*
@@ -30,11 +113,21 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Repositories
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 
+// Services
 builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
 
+// Facades
 builder.Services.AddScoped<IPatientFacade, PatientFacade>();
+builder.Services.AddScoped<IUserFacade, UserFacade>();
+builder.Services.AddScoped<IAuthorizationFacade, AuthorizationFacade>();
+
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
@@ -58,8 +151,14 @@ app.UseHttpsRedirection();
 */
 app.UseCors("AllowedOriginsPolicy");
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
+
+internal class JwtBearerDefaults
+{
+}

@@ -10,4 +10,7 @@
     <ProjectReference Include="..\DentalClinic.Exceptions\DentalClinic.Exceptions.csproj" />
     <ProjectReference Include="..\DentalClinic.Infrastructure\DentalClinic.Infrastructure.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.2.0" />
+  </ItemGroup>
 </Project>

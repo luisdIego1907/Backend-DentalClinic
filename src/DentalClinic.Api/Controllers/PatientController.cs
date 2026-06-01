@@ -4,11 +4,13 @@ using DentalClinic.Api.Mappers;
 using DentalClinic.Api.Models.Requests;
 using DentalClinic.Exceptions;
 using DentalClinic.Facade;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DentalClinic.Api.Controllers;
 
 [ApiController]
 [Route("api/patients")]
+[Authorize]
 public class PatientController : ControllerBase
 {
     private readonly IPatientFacade patientFacade;
@@ -19,6 +21,7 @@ public class PatientController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "admin,odontologist,assistant")]
     public async Task<IActionResult> GetPatients()
     {
         var patients = await patientFacade.GetAllAsync();
@@ -29,6 +32,7 @@ public class PatientController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize(Roles = "admin,odontologist,assistant")]
     public async Task<IActionResult> GetPatient(int id)
     {
         try
@@ -46,6 +50,7 @@ public class PatientController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "admin,odontologist,assistant")]
     public async Task<IActionResult> AddPatient([FromBody] CreatePatientRequestModel patient)
     {
         var dto = PatientMapper.ToDto(patient);
@@ -58,6 +63,7 @@ public class PatientController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "admin")]
     public async Task<IActionResult> DeletePatient(int id)
     {
         try

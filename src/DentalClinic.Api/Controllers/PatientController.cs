@@ -5,6 +5,8 @@ using DentalClinic.Api.Models.Requests;
 using DentalClinic.Exceptions;
 using DentalClinic.Facade;
 using Microsoft.AspNetCore.Authorization;
+using DentalClinic.Api.Models.Requests;
+
 
 namespace DentalClinic.Api.Controllers;
 
@@ -38,7 +40,7 @@ public class PatientController : ControllerBase
         try
         {
             var patient = await patientFacade.GetByIdAsync(id);
-            
+
             var model = PatientMapper.ToModel(patient);
 
             return Ok(model);
@@ -54,12 +56,32 @@ public class PatientController : ControllerBase
     public async Task<IActionResult> AddPatient([FromBody] CreatePatientRequestModel patient)
     {
         var dto = PatientMapper.ToDto(patient);
-        
+
         var addedPatient = await patientFacade.AddAsync(dto);
 
         var model = PatientMapper.ToModel(addedPatient);
-        
-        return CreatedAtAction(nameof(GetPatient), new {id = model.patient_id}, model);
+
+        return CreatedAtAction(nameof(GetPatient), new { id = model.patient_id }, model);
+    }
+
+    [HttpPut("{id}")]
+    [Authorize(Roles = "admin,assistant")]
+    public async Task<IActionResult> UpdatePatient(
+     int id,
+     [FromBody] UpdatePatientRequestModel patient)
+    {
+        try
+        {
+            var dto = PatientMapper.ToDto(patient);
+
+            await patientFacade.UpdateAsync(id, dto);
+
+            return Ok();
+        }
+        catch (ResourceNotFoundException)
+        {
+            return NotFound();
+        }
     }
 
     [HttpDelete("{id}")]

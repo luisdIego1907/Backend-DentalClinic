@@ -1,8 +1,5 @@
-using System;
-using System.Reflection.Metadata.Ecma335;
 using DentalClinic.Api.Models.Requests;
 using DentalClinic.Api.Models.Responses;
-using DentalClinic.Domain.Entities;
 using DentalClinic.Dto;
 
 namespace DentalClinic.Api.Mappers;
@@ -13,7 +10,6 @@ public class PatientMapper
     {
         return new PatientDto
         {
-
             identification = model.identification,
             first_name = model.first_name,
             last_name = model.last_name,
@@ -24,7 +20,23 @@ public class PatientMapper
             gender = model.gender,
             created_at = DateTime.UtcNow,
             status = "active"
+        };
+    }
 
+    public static UpdatePatientRequestDto ToDto(
+        UpdatePatientRequestModel model)
+    {
+        return new UpdatePatientRequestDto
+        {
+            identification = model.identification,
+            first_name = model.first_name,
+            last_name = model.last_name,
+            birth_date = model.birth_date,
+            phone = model.phone,
+            email = model.email,
+            address = model.address,
+            gender = model.gender,
+            status = model.status
         };
     }
 
@@ -37,7 +49,6 @@ public class PatientMapper
     {
         return new PatientResponseModel
         {
-
             patient_id = patient.patient_id,
             identification = patient.identification,
             first_name = patient.first_name,
@@ -48,7 +59,7 @@ public class PatientMapper
             address = patient.address,
             gender = patient.gender,
             created_at = patient.created_at,
-             status = patient.status
+            status = patient.status
         };
     }
 }

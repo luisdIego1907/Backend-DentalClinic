@@ -5,17 +5,22 @@ namespace DentalClinic.Infrastructure.Repositories;
 
 public class PatientRepository : IPatientRepository
 {
-
     private readonly AppDbContext _context;
 
     public PatientRepository(AppDbContext context)
     {
         _context = context;
     }
+
     public async Task<Patient> AddAsync(Patient patient)
     {
         await _context.Patients.AddAsync(patient);
         return patient;
+    }
+
+    public async Task UpdateAsync(Patient patient)
+    {
+        _context.Patients.Update(patient);
     }
 
     public async Task DeleteAsync(Patient patient)
@@ -30,7 +35,7 @@ public class PatientRepository : IPatientRepository
 
     public async Task<Patient?> GetByIdAsync(int patient_id)
     {
-        return await _context.Patients.FirstOrDefaultAsync(p => p.patient_id == patient_id);
+        return await _context.Patients
+            .FirstOrDefaultAsync(p => p.patient_id == patient_id);
     }
-
 }

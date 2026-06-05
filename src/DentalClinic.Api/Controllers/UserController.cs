@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DentalClinic.Api.Controllers;
 
-//[Authorize]
+[Authorize]
 [ApiController]
 [Route("api/users")]
 public class UserController(IUserFacade userFacade) : ControllerBase
@@ -39,7 +39,7 @@ public class UserController(IUserFacade userFacade) : ControllerBase
         }
 
         
-       // [Authorize(Roles = RoleNames.ADMINISTRATOR)]
+        [Authorize(Roles = RoleNames.ADMINISTRATOR)]
         [HttpGet("{userId}/roles")]
         public async Task<IActionResult> GetUserRolesAsync(Guid userId)
         {
@@ -60,7 +60,7 @@ public class UserController(IUserFacade userFacade) : ControllerBase
             return Ok(responseModel);
         }
 
-         [Authorize(Roles = RoleNames.ADMINISTRATOR)]
+        [Authorize(Roles = RoleNames.ADMINISTRATOR)]
         [HttpDelete("{userId}/roles")]
         public async Task<IActionResult> DeleteUserRolesAsync(Guid userId)
         {

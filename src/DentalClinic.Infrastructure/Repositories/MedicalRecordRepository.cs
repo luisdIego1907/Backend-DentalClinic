@@ -17,4 +17,9 @@ public class MedicalRecordRepository : IMedicalRecordRepository
            .FirstOrDefaultAsync(r => r.PatientId == patientId);
     }
 
+    public Task<MedicalRecord?> GetByIdAsync(int recordId)
+    {
+        return _context.MedicalRecords
+            .FirstOrDefaultAsync(r => r.RecordId == recordId);
+    }
 }

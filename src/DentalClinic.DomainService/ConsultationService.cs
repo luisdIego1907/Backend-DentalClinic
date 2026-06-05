@@ -7,7 +7,8 @@ namespace DentalClinic.DomainService;
 public class ConsultationService : IConsultationService
 {
     private readonly IConsultationRepository _consultaitionRepository;
-    public ConsultationService(IConsultationRepository consultationRepository)
+    private readonly IMedicalRecordRepository _medicalRecordRepository;
+    public ConsultationService(IConsultationRepository consultationRepository, IMedicalRecordRepository medicalRecordRepository)
     {
         _consultaitionRepository = consultationRepository;
     }
@@ -22,6 +23,15 @@ public class ConsultationService : IConsultationService
         if (dto.treatments?.Any() is not true)
         {
             throw new Exceptions.BadRequestResponseException("Consultation must have at least one treatment.");
+        }
+
+        var medicalRecord = await _medicalRecordRepository.GetByIdAsync(dto.record_id);
+
+        if (medicalRecord == null)
+        {
+            throw new Exceptions.ResourceNotFoundException(
+                $"Medical record {dto.record_id} not found."
+            );
         }
 
         var entity = new Consultation

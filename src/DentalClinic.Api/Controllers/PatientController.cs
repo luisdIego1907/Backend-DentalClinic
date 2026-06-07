@@ -76,7 +76,7 @@ public class PatientController : ControllerBase
 
             await patientFacade.UpdateAsync(id, dto);
 
-            return Ok();
+            return NoContent();
         }
         catch (ResourceNotFoundException)
         {

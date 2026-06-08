@@ -1,13 +1,13 @@
+using System.Text;
 using System.Text.Json.Serialization;
 using DentalClinic.Api.Filters;
+using DentalClinic.Api.Security;
 using DentalClinic.DomainService;
 using DentalClinic.Facade;
 using DentalClinic.Infrastructure;
 using DentalClinic.Infrastructure.Repositories;
-using Microsoft.EntityFrameworkCore;
-using System.Text;
-using DentalClinic.Api.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -116,16 +116,21 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<IConsultationRepository, ConsultationRepository>();
+builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
 
 // Services
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
-
+builder.Services.AddScoped<IConsultationService, ConsultationService>();
+builder.Services.AddScoped<IMedicalRecordService, MedicalRecordService>();
 // Facades
 builder.Services.AddScoped<IPatientFacade, PatientFacade>();
 builder.Services.AddScoped<IUserFacade, UserFacade>();
 builder.Services.AddScoped<IAuthorizationFacade, AuthorizationFacade>();
+builder.Services.AddScoped<IConsultationFacade, ConsultationFacade>();
+builder.Services.AddScoped<IMedicalRecordFacade, MedicalRecordFacade>();
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>

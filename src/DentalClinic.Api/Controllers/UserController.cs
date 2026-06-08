@@ -39,7 +39,7 @@ public class UserController(IUserFacade userFacade) : ControllerBase
         }
 
         
-        [Authorize(Roles = RoleNames.ADMINISTRATOR)]
+        //[Authorize(Roles = RoleNames.ADMINISTRATOR)]
         [HttpGet("{userId}/roles")]
         public async Task<IActionResult> GetUserRolesAsync(Guid userId)
         {

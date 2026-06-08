@@ -13,10 +13,10 @@ namespace DentalClinic.Domain.Entities;
 public class UserRole
 {
    
-   public int user_id {get;private set;}
+   public int user_id {get; set;}
 
    [Column("RoleId")]
-   public int role_id {get; private set;}
+   public int role_id {get; set;}
 
    [Column("UserRoleResourceId")]
    public Guid user_role_resource_id {get; set;} = Guid.NewGuid();

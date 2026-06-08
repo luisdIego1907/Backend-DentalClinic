@@ -1,11 +1,8 @@
-using System;
-using DentalClinic.Domain.Entities;
 using DentalClinic.DomainService;
 using DentalClinic.Dto;
 using DentalClinic.Exceptions;
 using DentalClinic.Facade.Mappers;
 using DentalClinic.Infrastructure;
-using Microsoft.Identity.Client;
 
 namespace DentalClinic.Facade;
 
@@ -14,11 +11,14 @@ public class PatientFacade : IPatientFacade
     private readonly IPatientService patientService;
     private readonly AppDbContext context;
 
-    public PatientFacade(IPatientService patientService, AppDbContext context)
+    public PatientFacade(
+        IPatientService patientService,
+        AppDbContext context)
     {
         this.patientService = patientService;
         this.context = context;
     }
+
     public async Task<PatientDto> AddAsync(PatientDto patient)
     {
         var entity = await patientService.AddAsync(patient);
@@ -28,10 +28,19 @@ public class PatientFacade : IPatientFacade
         return PatientMapper.ToDto(entity);
     }
 
+    public async Task UpdateAsync(
+        int patient_id,
+        UpdatePatientRequestDto patient)
+    {
+        await patientService.UpdateAsync(patient_id, patient);
+
+        await context.SaveChangesAsync();
+    }
+
     public async Task DeleteAsync(int patient_id)
     {
         await patientService.DeleteAsync(patient_id);
-        
+
         await context.SaveChangesAsync();
     }
 
@@ -46,9 +55,9 @@ public class PatientFacade : IPatientFacade
     {
         var entity = await patientService.GetByIdAsync(patient_id);
 
-        if (entity == null) throw new ResourceNotFoundException();
+        if (entity == null)
+            throw new ResourceNotFoundException();
 
         return PatientMapper.ToDto(entity);
     }
-
 }

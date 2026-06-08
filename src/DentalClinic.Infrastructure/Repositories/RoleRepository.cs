@@ -1,7 +1,6 @@
 using DentalClinic.Domain.Entities;
 using System;
 using Microsoft.EntityFrameworkCore;
-using DentalClinic.Domain.Entities;
 
 namespace DentalClinic.Infrastructure.Repositories;
 
@@ -13,9 +12,9 @@ public class RoleRepository : IRoleRepository
     {
         _context = context;
     }
-    public Task<List<Role>> GetAllAsync()
+    public async Task<List<Role>> GetAllAsync()
     {
-        return _context.Roles.ToListAsync();
+        return await _context.Roles.ToListAsync();
     }
 
 }

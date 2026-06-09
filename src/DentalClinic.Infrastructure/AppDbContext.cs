@@ -1,7 +1,7 @@
 using System;
 using System.Net.Http.Headers;
-using Microsoft.EntityFrameworkCore;
 using DentalClinic.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace DentalClinic.Infrastructure;
 
@@ -9,18 +9,18 @@ public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
-        
+
     }
 
-    public DbSet<Patient> Patients{get; set;}
+    public DbSet<Patient> Patients { get; set; }
 
     public DbSet<Appointment> Appointments { get; set; }
 
     public DbSet<User> Users {get;set;}
 
-    public DbSet<Role> Roles {get;set;}
+    public DbSet<Role> Roles { get; set; }
 
-    public DbSet<UserRole> UserRoles {get;set;}
+    public DbSet<UserRole> UserRoles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -183,4 +183,9 @@ public class AppDbContext : DbContext
             .WithMany(r => r.UserRoles)
             .HasForeignKey(ur => ur.role_id);*/
     }
+
+    public DbSet<Consultation> Consultations { get; set; }
+    public DbSet<Diagnosis> Diagnoses { get; set; }
+    public DbSet<Treatment> Treatments { get; set; }
+    public DbSet<MedicalRecord> MedicalRecords { get; set; }
 }

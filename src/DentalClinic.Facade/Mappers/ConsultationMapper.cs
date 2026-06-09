@@ -1,0 +1,39 @@
+using DentalClinic.Domain.Entities;
+using DentalClinic.Dto;
+
+namespace DentalClinic.Facade.Mappers;
+
+public class ConsultationMapper
+{
+    public static ConsultationDto ToDto(Consultation consultation)
+    {
+        return new ConsultationDto
+        {
+            consultation_id = consultation.ConsultationId,
+            consultation_date = consultation.ConsultationDate,
+            reason = consultation.Reason,
+            observations = consultation.Observations,
+            odontogram = consultation.Odontogram,
+            diagnoses = consultation.Diagnoses.Select(d => new DiagnosisDto
+            {
+                Diagnosis_id = d.DiagnosisId,
+                Description = d.Description,
+                Diagnosis_date = d.DiagnosisDate
+            }).ToList(),
+            treatments = consultation.Treatments.Select(t => new TreatmentDto
+            {
+                Treatment_id = t.TreatmentId,
+                Description = t.Description,
+                Cost = t.Cost,
+                Status = t.Status,
+                Start_date = t.StartDate,
+                End_date = t.EndDate
+            }).ToList()
+        };
+    }
+
+    public static List<ConsultationDto> ToDto(List<Consultation> consultations)
+    {
+        return consultations.Select(c => ToDto(c)).ToList();
+    }
+}

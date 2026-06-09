@@ -39,4 +39,7 @@ public class Appointment
     public Patient? patient { get; set; }
 
     public User? user { get; set; }
+
+    public ICollection<Consultation> Consultations { get; set; } = new List<Consultation>();
+
 }

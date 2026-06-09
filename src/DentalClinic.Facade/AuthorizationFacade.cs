@@ -41,7 +41,7 @@ public class AuthorizationFacade : IAuthorizationFacade
         };
     }
 
-     private string GenerateJwtToken(User user, IConfigurationSection jwtSettings, int expirationMinutes)
+    private string GenerateJwtToken(User user, IConfigurationSection jwtSettings, int expirationMinutes)
     {
         var secret = jwtSettings["Secret"];
         var issuer = jwtSettings["Issuer"];
@@ -52,6 +52,7 @@ public class AuthorizationFacade : IAuthorizationFacade
 
         var claims = new List<Claim>
         {
+            new(ClaimTypes.NameIdentifier, user.user_id.ToString()),
             new(ClaimTypes.Name, user.username),
             new("externalId", user.user_resource_id.ToString()),
         };

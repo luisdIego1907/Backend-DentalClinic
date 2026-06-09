@@ -97,7 +97,9 @@ CREATE TABLE APPOINTMENT (
     appointment_id INT IDENTITY(1,1) PRIMARY KEY,
     patient_id INT NOT NULL,
     user_id INT NOT NULL,
-    appointment_datetime DATETIME2 NOT NULL,
+    appointment_date DATE NOT NULL,
+    appointment_time TIME NOT NULL,
+    duration_minutes INT NOT NULL,
     reason NVARCHAR(120) NOT NULL,
     status NVARCHAR(20) NOT NULL,
     notes NVARCHAR(255),
@@ -240,17 +242,19 @@ VALUES
 INSERT INTO dbo.APPOINTMENT (
     patient_id,
     user_id,
-    appointment_datetime,
+    appointment_date,
+    appointment_time,
+    duration_minutes,
     reason,
     status,
     notes
 )
 VALUES
-(1, 2, '2026-06-03 09:00:00', 'Routine dental checkup', 'scheduled', 'First appointment of the morning.'),
-(2, 2, '2026-06-03 10:30:00', 'Tooth pain evaluation', 'scheduled', 'Patient reports pain in upper molar.'),
-(3, 3, '2026-06-04 14:00:00', 'Dental cleaning', 'scheduled', 'Routine cleaning appointment.'),
-(4, 3, '2026-06-05 11:00:00', 'Cavity evaluation', 'scheduled', 'Possible cavity in lower premolar.'),
-(5, 2, '2026-06-06 08:30:00', 'Follow-up consultation', 'cancelled', 'Patient requested rescheduling.');
+(1, 2, '2026-06-03', '09:00:00', 30, 'Routine dental checkup', 'Confirmada', 'First appointment of the morning.'),
+(2, 2, '2026-06-03', '10:30:00', 45, 'Tooth pain evaluation', 'Confirmada', 'Patient reports pain in upper molar.'),
+(3, 3, '2026-06-04', '14:00:00', 60, 'Dental cleaning', 'Pendiente', 'Routine cleaning appointment.'),
+(4, 3, '2026-06-05', '11:00:00', 45, 'Cavity evaluation', 'En espera', 'Possible cavity in lower premolar.'),
+(5, 2, '2026-06-06', '08:30:00', 30, 'Follow-up consultation', 'Pendiente', 'Patient requested rescheduling.');
 
 INSERT INTO dbo.CONSULTATION (
     record_id,

@@ -114,16 +114,19 @@ builder.Services.AddCors(options =>
 
 // Repositories
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 
 // Services
 builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 
 // Facades
 builder.Services.AddScoped<IPatientFacade, PatientFacade>();
+builder.Services.AddScoped<IAppointmentFacade, AppointmentFacade>();
 builder.Services.AddScoped<IUserFacade, UserFacade>();
 builder.Services.AddScoped<IAuthorizationFacade, AuthorizationFacade>();
 

@@ -14,6 +14,8 @@ public class AppDbContext : DbContext
 
     public DbSet<Patient> Patients{get; set;}
 
+    public DbSet<Appointment> Appointments { get; set; }
+
     public DbSet<User> Users {get;set;}
 
     public DbSet<Role> Roles {get;set;}
@@ -111,6 +113,60 @@ public class AppDbContext : DbContext
             entity.HasOne(ur => ur.role)
                 .WithMany(r => r.UserRoles)
                 .HasForeignKey(ur => ur.role_id);
+        });
+
+
+        modelBuilder.Entity<Appointment>(entity =>
+        {
+            entity.ToTable("APPOINTMENT");
+
+            entity.HasKey(a => a.appointment_id);
+
+            entity.Property(a => a.appointment_id)
+                .HasColumnName("appointment_id");
+
+            entity.Property(a => a.patient_id)
+                .HasColumnName("patient_id")
+                .IsRequired();
+
+            entity.Property(a => a.user_id)
+                .HasColumnName("user_id")
+                .IsRequired();
+
+            entity.Property(a => a.appointment_date)
+                .HasColumnName("appointment_date")
+                .IsRequired();
+
+            entity.Property(a => a.appointment_time)
+                .HasColumnName("appointment_time")
+                .HasColumnType("time")
+                .IsRequired();
+
+            entity.Property(a => a.duration_minutes)
+                .HasColumnName("duration_minutes")
+                .IsRequired();
+
+            entity.Property(a => a.reason)
+                .HasColumnName("reason")
+                .HasMaxLength(120)
+                .IsRequired();
+
+            entity.Property(a => a.status)
+                .HasColumnName("status")
+                .HasMaxLength(20)
+                .IsRequired();
+
+            entity.Property(a => a.notes)
+                .HasColumnName("notes")
+                .HasMaxLength(255);
+
+            entity.HasOne(a => a.patient)
+                .WithMany()
+                .HasForeignKey(a => a.patient_id);
+
+            entity.HasOne(a => a.user)
+                .WithMany()
+                .HasForeignKey(a => a.user_id);
         });
 
 /*

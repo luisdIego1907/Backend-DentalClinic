@@ -1,4 +1,3 @@
-
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,40 +8,38 @@ public class Appointment
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [Column("appointment_id")]
-    public int AppointmentId { get; set; }
+    public int appointment_id { get; private set; }
 
     [Required]
-    [Column("patient_id")]
-    public int PatientId { get; set; }
+    public int patient_id { get; set; }
 
     [Required]
-    [Column("user_id")]
-    public int UserId { get; set; }
+    public int user_id { get; set; }
 
     [Required]
-    [Column("appointment_datetime")]
-    public DateTime AppointmentDateTime { get; set; }
+    public DateOnly appointment_date { get; set; }
 
     [Required]
-    [MaxLength(120)]
-    [Column("reason")]
-    public string Reason { get; set; }
+    public TimeOnly appointment_time { get; set; }
 
     [Required]
-    [MaxLength(20)]
-    [Column("status")]
-    public string Status { get; set; }
+    public int duration_minutes { get; set; }
 
-    [MaxLength(255)]
-    [Column("notes")]
-    public string? Notes { get; set; }
+    [Required]
+    [StringLength(120)]
+    public string reason { get; set; } = string.Empty;
 
-    [ForeignKey("PatientId")]
-    public Patient Patient { get; set; } = null!;
+    [Required]
+    [StringLength(20)]
+    public string status { get; set; } = "Pendiente";
 
-    [ForeignKey("UserId")]
-    public User User { get; set; } = null!;
+    [StringLength(255)]
+    public string? notes { get; set; }
+
+    public Patient? patient { get; set; }
+
+    public User? user { get; set; }
 
     public ICollection<Consultation> Consultations { get; set; } = new List<Consultation>();
+
 }

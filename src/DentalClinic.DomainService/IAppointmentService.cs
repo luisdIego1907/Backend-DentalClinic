@@ -14,4 +14,6 @@ public interface IAppointmentService
     Task<Appointment> AddAsync(SaveAppointmentRequestDto appointment);
 
     Task UpdateAsync(int appointment_id, UpdateAppointmentRequestDto appointment);
+
+    Task<List<Patient>> GetPatientsByDoctorAsync(int user_id);
 }

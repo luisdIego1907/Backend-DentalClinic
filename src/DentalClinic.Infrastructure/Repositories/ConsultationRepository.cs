@@ -31,6 +31,8 @@ public class ConsultationRepository : IConsultationRepository
             .Include(c => c.Diagnoses)
             .Include(c => c.Treatments)
             .Include(c => c.User)
+            .Include(c => c.MedicalRecord)
+            .ThenInclude(mr => mr.Patient)
             .ToListAsync();
     }
 }

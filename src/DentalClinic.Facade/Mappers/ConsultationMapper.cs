@@ -48,6 +48,8 @@ public class ConsultationMapper
             odontogram = consultation.Odontogram,
             odontologist_first_name = consultation.User?.first_name ?? string.Empty,
             odontologist_last_name = consultation.User?.last_name ?? string.Empty,
+            patient_first_name = consultation.MedicalRecord?.Patient?.first_name ?? "NO PATIENT",
+            patient_last_name = consultation.MedicalRecord?.Patient?.last_name ?? "NO PATIENT",
             diagnoses = consultation.Diagnoses.Select(d => new DiagnosisDto
             {
                 Diagnosis_id = d.DiagnosisId,

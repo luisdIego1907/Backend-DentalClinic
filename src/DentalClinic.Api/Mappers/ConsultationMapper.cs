@@ -1,5 +1,6 @@
 using DentalClinic.Api.Models.Requests;
 using DentalClinic.Api.Models.Responses;
+using DentalClinic.Domain.Entities;
 using DentalClinic.Dto;
 namespace DentalClinic.Api.Mappers;
 
@@ -74,6 +75,8 @@ public class ConsultationMapper
             odontogram = dto.odontogram,
             odontologist_first_name = dto.odontologist_first_name,
             odontologist_last_name = dto.odontologist_last_name,
+            patient_first_name = dto.patient_first_name,
+            patient_last_name = dto.patient_last_name,
             diagnoses = dto.diagnoses.Select(d => new DiagnosisResponse
             {
                 diagnosis_id = d.Diagnosis_id,

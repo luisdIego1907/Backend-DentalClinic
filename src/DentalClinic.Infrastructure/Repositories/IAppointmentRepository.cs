@@ -17,4 +17,6 @@ public interface IAppointmentRepository
     Task<Appointment> AddAsync(Appointment appointment);
 
     Task UpdateAsync(Appointment appointment);
+
+    Task<List<Patient>> GetPatientsByDoctorAsync(int user_id);
 }

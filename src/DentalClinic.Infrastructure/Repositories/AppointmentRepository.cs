@@ -63,4 +63,15 @@ public class AppointmentRepository : IAppointmentRepository
         context.Appointments.Update(appointment);
         await Task.CompletedTask;
     }
+
+    public Task<List<Patient>> GetPatientsByDoctorAsync(int user_id)
+    {
+        return context.Appointments
+            .Where(a => a.user_id == user_id)
+            .Select(a => a.patient!)
+            .Distinct()
+            .OrderBy(p => p.first_name)
+            .ThenBy(p => p.last_name)
+            .ToListAsync();
+    }
 }

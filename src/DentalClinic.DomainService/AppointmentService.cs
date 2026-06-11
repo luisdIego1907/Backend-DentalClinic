@@ -160,4 +160,9 @@ public class AppointmentService : IAppointmentService
     {
         return (time.Hour * 60) + time.Minute;
     }
+
+    public Task<List<Patient>> GetPatientsByDoctorAsync(int user_id)
+    {
+        return appointmentRepository.GetPatientsByDoctorAsync(user_id);
+    }
 }

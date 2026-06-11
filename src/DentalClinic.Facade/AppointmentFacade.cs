@@ -63,4 +63,11 @@ public class AppointmentFacade : IAppointmentFacade
 
         await context.SaveChangesAsync();
     }
+
+    public async Task<List<PatientDto>> GetPatientsByDoctorAsync(int user_id)
+    {
+        var entities = await appointmentService.GetPatientsByDoctorAsync(user_id);
+
+        return PatientMapper.ToDto(entities);
+    }
 }

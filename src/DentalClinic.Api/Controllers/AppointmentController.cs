@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using DentalClinic.Api.Mappers;
 using DentalClinic.Api.Models.Requests;
 using DentalClinic.Api.Security;
@@ -87,5 +88,20 @@ public class AppointmentController : ControllerBase
         {
             return NotFound();
         }
+    }
+
+    [HttpGet("my-patients")]
+    public async Task<IActionResult> GetMyPatients()
+    {
+        var userId = int.Parse(
+            User.FindFirst(ClaimTypes.NameIdentifier)!.Value
+        );
+
+        var patients = await appointmentFacade
+            .GetPatientsByDoctorAsync(userId);
+
+        var models = PatientMapper.ToModel(patients);
+
+        return Ok(models);
     }
 }

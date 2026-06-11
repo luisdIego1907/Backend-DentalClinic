@@ -11,6 +11,7 @@ public class ConsultationService : IConsultationService
     public ConsultationService(IConsultationRepository consultationRepository, IMedicalRecordRepository medicalRecordRepository)
     {
         _consultaitionRepository = consultationRepository;
+        _medicalRecordRepository = medicalRecordRepository;
     }
 
     public async Task<Consultation> CreateConsultationAsync(CreateConsultationDto dto, int userId)

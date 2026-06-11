@@ -13,4 +13,6 @@ public interface IAppointmentFacade
     Task<AppointmentDto> AddAsync(SaveAppointmentRequestDto appointment);
 
     Task UpdateAsync(int appointment_id, UpdateAppointmentRequestDto appointment);
+
+    Task<List<PatientDto>> GetPatientsByDoctorAsync(int user_id);
 }

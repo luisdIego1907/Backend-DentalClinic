@@ -47,4 +47,13 @@ public class ConsultationController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpGet]
+    [Authorize(Policy = AuthorizationPolicies.CanManageConsultations)]
+    public async Task<IActionResult> GetAll()
+    {
+        var consultations = await _consultationFacade.GetAllConsultations();
+        var response = ConsultationMapper.ToSummaryResponse(consultations);
+        return Ok(response);
+    }
 }

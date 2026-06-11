@@ -66,10 +66,14 @@ public class ConsultationService : IConsultationService
     }
 
 
-
     public Task<List<Consultation>> GetByRecordIdAsync(int record_id)
     {
         return _consultaitionRepository.GetByRecordIdAsync(record_id);
+    }
+
+    public Task<List<Consultation>> GetAllConsultations()
+    {
+        return _consultaitionRepository.GetAllAsync();
     }
 
 }

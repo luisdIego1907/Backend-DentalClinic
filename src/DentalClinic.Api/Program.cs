@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json.Serialization;
+using System.Threading.RateLimiting;
 using DentalClinic.Api.Filters;
 using DentalClinic.Api.Security;
 using DentalClinic.DomainService;
@@ -7,8 +8,10 @@ using DentalClinic.Facade;
 using DentalClinic.Infrastructure;
 using DentalClinic.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -112,6 +115,38 @@ builder.Services.AddCors(options =>
     });
 });
 
+var permitLimit = builder.Configuration.GetValue<int>("RateLimiting:PermitLimit");
+
+var windowSeconds = builder.Configuration.GetValue<int>("RateLimiting:WindowSeconds");
+
+var queueLimit = builder.Configuration.GetValue<int>("RateLimiting:QueueLimit");
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddFixedWindowLimiter("fixed", limiterOptions =>
+    {
+        limiterOptions.PermitLimit = permitLimit;
+        limiterOptions.Window = TimeSpan.FromSeconds(windowSeconds);
+        limiterOptions.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+        limiterOptions.QueueLimit = queueLimit;
+    });
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    options.OnRejected = async (context, token) =>
+    {
+        context.HttpContext.Response.ContentType = "aplication/json";
+
+        await context.HttpContext.Response.WriteAsync(
+            """
+        {
+            "status": 429,
+            "message": "Demasiadas solicitudes. Intente nuevamente más tarde"
+        }
+        """,
+        cancellationToken: token);
+    };
+});
+
 // Repositories
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
@@ -161,6 +196,8 @@ app.UseCors("AllowedOriginsPolicy");
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseRateLimiter();
 
 app.MapControllers();
 

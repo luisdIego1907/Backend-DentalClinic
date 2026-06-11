@@ -62,4 +62,38 @@ public class ConsultationMapper
     {
         return dtos.Select(d => ToResponse(d)).ToList();
     }
+
+    public static ConsultationSummaryResponse ToSummaryResponse(ConsultationSummaryDto dto)
+    {
+        return new ConsultationSummaryResponse
+        {
+            consultation_id = dto.consultation_id,
+            consultation_date = dto.consultation_date,
+            reason = dto.reason,
+            observations = dto.observations,
+            odontogram = dto.odontogram,
+            odontologist_first_name = dto.odontologist_first_name,
+            odontologist_last_name = dto.odontologist_last_name,
+            diagnoses = dto.diagnoses.Select(d => new DiagnosisResponse
+            {
+                diagnosis_id = d.Diagnosis_id,
+                description = d.Description,
+                diagnosis_date = d.Diagnosis_date
+            }).ToList(),
+            treatments = dto.treatments.Select(t => new TreatmentResponse
+            {
+                treatment_id = t.Treatment_id,
+                description = t.Description,
+                cost = t.Cost,
+                status = t.Status,
+                start_date = t.Start_date,
+                end_date = t.End_date
+            }).ToList()
+        };
+    }
+
+    public static List<ConsultationSummaryResponse> ToSummaryResponse(List<ConsultationSummaryDto> dtos)
+    {
+        return dtos.Select(d => ToSummaryResponse(d)).ToList();
+    }
 }

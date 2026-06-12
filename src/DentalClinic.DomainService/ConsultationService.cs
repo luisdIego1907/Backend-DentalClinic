@@ -8,10 +8,12 @@ public class ConsultationService : IConsultationService
 {
     private readonly IConsultationRepository _consultaitionRepository;
     private readonly IMedicalRecordRepository _medicalRecordRepository;
-    public ConsultationService(IConsultationRepository consultationRepository, IMedicalRecordRepository medicalRecordRepository)
+    private readonly IAppointmentRepository _appointmentRepository;
+    public ConsultationService(IConsultationRepository consultationRepository, IMedicalRecordRepository medicalRecordRepository, IAppointmentRepository appointmentRepository)
     {
         _consultaitionRepository = consultationRepository;
         _medicalRecordRepository = medicalRecordRepository;
+        _appointmentRepository = appointmentRepository;
     }
 
     public async Task<Consultation> CreateConsultationAsync(CreateConsultationDto dto, int userId)
@@ -61,6 +63,17 @@ public class ConsultationService : IConsultationService
 
 
         await _consultaitionRepository.AddAsync(entity);
+
+        if (dto.appointment_id.HasValue)
+        {
+            var appointment = await _appointmentRepository.GetByIdAsync(dto.appointment_id.Value);
+
+            if (appointment != null)
+            {
+                appointment.status = "Atendida";
+                await _appointmentRepository.UpdateAsync(appointment);
+            }
+        }
         return entity;
 
     }

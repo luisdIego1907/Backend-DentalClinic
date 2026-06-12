@@ -28,6 +28,12 @@ public class ConsultationFacade : IConsultationFacade
         var entities = await _consultationService.GetByRecordIdAsync(recordId);
         return ConsultationMapper.ToDto(entities);
     }
+
+    public async Task<List<ConsultationSummaryDto>> GetAllConsultations()
+    {
+        var entities = await _consultationService.GetAllConsultations();
+        return ConsultationMapper.ToSummaryDto(entities);
+    }
 }
 
 

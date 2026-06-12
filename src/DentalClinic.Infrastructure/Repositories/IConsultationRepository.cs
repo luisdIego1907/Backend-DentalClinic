@@ -4,6 +4,8 @@ namespace DentalClinic.Infrastructure.Repositories;
 
 public interface IConsultationRepository
 {
-    public Task<List<Consultation>> GetByRecordIdAsync(int record_id);
+    Task<List<Consultation>> GetAllAsync();
+    Task<List<Consultation>> GetByRecordIdAsync(int record_id);
     Task AddAsync(Consultation consultation);
+
 }

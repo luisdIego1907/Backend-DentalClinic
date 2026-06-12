@@ -4,6 +4,7 @@ namespace DentalClinic.DomainService;
 
 public interface IConsultationService
 {
-    public Task<List<Consultation>> GetByRecordIdAsync(int record_id);
-    public Task<Consultation> CreateConsultationAsync(CreateConsultationDto consultation, int userId);
+    Task<List<Consultation>> GetByRecordIdAsync(int record_id);
+    Task<Consultation> CreateConsultationAsync(CreateConsultationDto consultation, int userId);
+    Task<List<Consultation>> GetAllConsultations();
 }

@@ -24,4 +24,15 @@ public class ConsultationRepository : IConsultationRepository
     {
         await _context.Consultations.AddAsync(consultation);
     }
+
+    public Task<List<Consultation>> GetAllAsync()
+    {
+        return _context.Consultations
+            .Include(c => c.Diagnoses)
+            .Include(c => c.Treatments)
+            .Include(c => c.User)
+            .Include(c => c.MedicalRecord)
+            .ThenInclude(mr => mr.Patient)
+            .ToListAsync();
+    }
 }

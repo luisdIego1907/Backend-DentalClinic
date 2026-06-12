@@ -37,6 +37,21 @@ public class ConsultationService : IConsultationService
             );
         }
 
+        if (dto.appointment_id.HasValue)
+        {
+            var existingConsultation =
+                await _consultaitionRepository.GetAppointmentByIdAsync(
+                    dto.appointment_id.Value
+                );
+
+            if (existingConsultation != null)
+            {
+                throw new Exceptions.BadRequestResponseException(
+                    "Esta cita ya tiene una consulta registrada."
+                );
+            }
+        }
+
         var entity = new Consultation
         {
             RecordId = dto.record_id,

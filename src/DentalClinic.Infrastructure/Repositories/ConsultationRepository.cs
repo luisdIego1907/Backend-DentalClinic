@@ -35,4 +35,10 @@ public class ConsultationRepository : IConsultationRepository
             .ThenInclude(mr => mr.Patient)
             .ToListAsync();
     }
+
+    public Task<Consultation?> GetAppointmentByIdAsync(int appointmentId)
+    {
+        return _context.Consultations
+            .FirstOrDefaultAsync(c => c.AppointmentId == appointmentId);
+    }
 }
